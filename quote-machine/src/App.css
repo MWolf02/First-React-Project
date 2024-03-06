@@ -1,28 +1,63 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700");
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i");
 
+*,
+*::before,
+*::after{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --font-roboto: "Roboto Slab", serif;
+  --font-raleway: "Raleway", sans-serif;
+}
+
 body{
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: var(--font-roboto);
+  background-color: #212426;
 }
 
 .App {
-  text-align: center;
-  background-color: bisque;
-  width: 50%;
+ background-color: bisque;
+ width: 40vw;
+ height: auto;
+ align-items: center;
+ padding: 40px 50px;
+ border-radius: 6px;
 }
 
 #text{
-
+  font-size: 26px;
+  margin: 12px 0px;
 }
 
 #author{
-
+  font-size: 14px;
 }
 
 #new-quote{
-
+  padding: 10px 12px;
+  color: white;
+  background-color: rgb(150, 104, 82);
+  border-radius: 6px;
+  border-color: white;
 }
 
-#tweet-quote{
+.tweet-icon{
+  width: 36px;
+  height: 36px;
+  color: white;
+}
 
+.buttons{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
 }
