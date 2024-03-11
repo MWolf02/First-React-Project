@@ -23,11 +23,12 @@
   font-size: 20px;
   border-radius: 8px;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.264);
-  transition: all 0.2s ease-in-out;
+  transition: all 0.1s ease-in-out;
 }
 
-.drum-pad:active {
-  transform: translate(0px, 4px);
+.drum-pad:active, .pressed {
+  transform: translate(0px, 2px);
+  background-color: rgb(51, 94, 51);
 }
 
 #display{

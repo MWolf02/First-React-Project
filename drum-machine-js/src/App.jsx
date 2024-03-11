@@ -1,6 +1,9 @@
+// Importing CSS styles for the App
 import "./App.css";
+// Importing the Drum component
 import Drum from "./drum";
 
+// Array of audio clips with their details
 const audioClips = [
   {
     keyTrigger: "Q",
@@ -49,28 +52,39 @@ const audioClips = [
   },
 ];
 
+// App component
 function App() {
+  // Function to play audio when a key is pressed
   const playAudio = (e) => {
+    // Find the audio clip corresponding to the pressed key
     const clip = audioClips.find(
       (clip) => clip.keyTrigger === e.key.toUpperCase()
     );
+    // If no clip is found, return
     if (!clip) return;
+    // Play the audio associated with the clip
     document.getElementById(clip.keyTrigger).play().catch(console.error);
-
+    // Set focus on the corresponding drum button
     document.getElementById("drum-" + clip.keyTrigger).focus();
+    // Update the display with the description of the clip
     document.getElementById("display").innerText = clip.description;
   };
+
+  // Rendering the App component
   return (
     <div className="container" id="drum-machine" onKeyDown={playAudio}>
       <h1>FCC Drum Machine</h1>
       <div className="whole-drum">
+        {/* Rendering Drum component for each audio clip */}
         {audioClips.map((clip) => (
           <Drum audioClip={clip} key={clip.keyTrigger} />
         ))}
       </div>
+      {/* Display area for clip description */}
       <div id="display"></div>
     </div>
   );
 }
 
+// Exporting the App component as default
 export default App;
