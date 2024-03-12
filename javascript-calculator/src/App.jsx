@@ -1,86 +1,87 @@
-import React, { useState } from "react";
-import "./App.css";
+import React, { useState } from "react"; // Importing React and useState hook from React library
+import "./App.css"; // Importing CSS file for styling
 
 function App() {
-  const [answer, setAnswer] = useState("");
-  const [expression, setExpression] = useState("");
-  const et = expression.trim();
+  const [answer, setAnswer] = useState(""); // Initializing state for answer with useState hook
+  const [expression, setExpression] = useState(""); // Initializing state for expression with useState hook
+  const et = expression.trim(); // Trimming the expression
 
-  const isOperator = (symbol) => {
-    return /[*/+-]/.test(symbol);
+  const isOperator = (symbol) => { // Function to check if the symbol is an operator
+    return /[*/+-]/.test(symbol); // Using regular expression to check if the symbol is an operator
   };
 
-  const buttonPress = (symbol) => {
-    if (symbol === "clear") {
-      setAnswer("");
-      setExpression("0"); 
-    } else if (symbol === "negative") {
-      if (answer === "") return;
-      setAnswer(
+  const buttonPress = (symbol) => { // Function to handle button press
+    if (symbol === "clear") { // If the symbol is "clear"
+      setAnswer(""); // Clearing the answer
+      setExpression("0"); // Resetting the expression to "0"
+    } else if (symbol === "negative") { // If the symbol is "negative"
+      if (answer === "") return; // If answer is empty, return
+      setAnswer( // Setting the answer based on the condition
         answer.toString().charAt(0) === "-" ? answer.slice(1) : "-" + answer
       );
-    } else if (symbol === "percent") {
-      if (answer === "") return;
-      setAnswer((parseFloat(answer) / 100).toString());
-    } else if (isOperator(symbol)) {
-      setExpression(et + " " + symbol + " ");
-    } else if (symbol === "=") {
-      calculate();
-    } else if (symbol === "0") {
-      if (expression.charAt(0) !== "0") {
-        setExpression(expression + symbol);
+    } else if (symbol === "percent") { // If the symbol is "percent"
+      if (answer === "") return; // If answer is empty, return
+      setAnswer((parseFloat(answer) / 100).toString()); // Calculating percentage and setting the answer
+    } else if (isOperator(symbol)) { // If the symbol is an operator
+      setExpression(et + " " + symbol + " "); // Adding the operator to the expression
+    } else if (symbol === "=") { // If the symbol is "="
+      calculate(); // Calling the calculate function
+    } else if (symbol === "0") { // If the symbol is "0"
+      if (expression.charAt(0) !== "0") { // If expression does not start with "0"
+        setExpression(expression + symbol); // Adding "0" to the expression
       }
-    } else if (symbol === ".") {
-      const lastNumber = expression.split(/[-+/*]/g).pop();
-      if (!lastNumber) return;
-      if (lastNumber.includes(".")) return;
-      setExpression(expression + symbol);
-    } else {
-      if (expression.charAt(0) === "0") {
-        setExpression(expression.slice(1) + symbol);
-      } else {
-        setExpression(expression + symbol);
+    } else if (symbol === ".") { // If the symbol is "."
+      const lastNumber = expression.split(/[-+/*]/g).pop(); // Getting the last number in the expression
+      if (!lastNumber) return; // If no last number, return
+      if (lastNumber.includes(".")) return; // If last number already contains ".", return
+      setExpression(expression + symbol); // Adding "." to the expression
+    } else { // For other symbols
+      if (expression.charAt(0) === "0") { // If expression starts with "0"
+        setExpression(expression.slice(1) + symbol); // Removing "0" and adding the symbol to the expression
+      } else { // For other cases
+        setExpression(expression + symbol); // Adding the symbol to the expression
       }
     }
   };
 
-  const calculate = () => {
-    if (isOperator(et.charAt(et.length - 1))) return;
-    const parts = et.split(" ");
-    const newParts = [];
+  const calculate = () => { // Function to calculate the expression
+    if (isOperator(et.charAt(et.length - 1))) return; // If last character is an operator, return
+    const parts = et.split(" "); // Splitting the expression into parts
+    const newParts = []; // Initializing an array for new parts
 
-    for (let i = parts.length - 1; i >= 0; i--) {
-      if (["*", "/", "+"].includes(parts[i]) && isOperator(parts[i - 1])) {
-        newParts.unshift(parts[i]);
-        let j = 0;
-        let k = i - 1;
-        while (isOperator(parts[k])) {
-          k--;
-          j++;
+    for (let i = parts.length - 1; i >= 0; i--) { // Looping through parts backwards
+      if (["*", "/", "+"].includes(parts[i]) && isOperator(parts[i - 1])) { // If current part is an operator and previous part is also an operator
+        newParts.unshift(parts[i]); // Adding current part to the beginning of new parts array
+        let j = 0; // Initializing variable j
+        let k = i - 1; // Initializing variable k
+        while (isOperator(parts[k])) { // While previous parts are operators
+          k--; // Decrementing k
+          j++; // Incrementing j
         }
-        i -= j;
-      } else {
-        newParts.unshift(parts[i]);
+        i -= j; // Updating i based on j
+      } else { // For other cases
+        newParts.unshift(parts[i]); // Adding current part to the beginning of new parts array
       }
     }
-    const newExpression = newParts.join(" ");
-    if (isOperator(newExpression.charAt(0))) {
-      setAnswer(eval(answer + newExpression).toString());
-    } else {
-      setAnswer(eval(newExpression).toString());
+    const newExpression = newParts.join(" "); // Joining new parts to form new expression
+    if (isOperator(newExpression.charAt(0))) { // If first character of new expression is an operator
+      setAnswer(eval(answer + newExpression).toString()); // Evaluating the expression and setting the answer
+    } else { // For other cases
+      setAnswer(eval(newExpression).toString()); // Evaluating the expression and setting the answer
     }
-    setExpression("");
+    setExpression(""); // Resetting the expression
   };
 
   return (
-    <>
-      <div className="container">
-        <h1>Calculator Application</h1>
-        <div id="calculator">
-          <div id="display" style={{ textAlign: "right" }}>
-            <div id="answer">{answer}</div>
-            <div id="expression">{expression}</div>
+    <> {/* Fragment for wrapping multiple children */}
+      <div className="container"> {/* Container for calculator */}
+        <h1>Calculator Application</h1> {/* Heading */}
+        <div id="calculator"> {/* Calculator display */}
+          <div id="display" style={{ textAlign: "right" }}> {/* Display section */}
+            <div id="answer">{answer}</div> {/* Answer display */}
+            <div id="expression">{expression}</div> {/* Expression display */}
           </div>
+          {/* Buttons for calculator operations */}
           <button
             id="clear"
             onClick={() => buttonPress("clear")}
@@ -93,7 +94,7 @@ function App() {
             onClick={() => buttonPress("negative")}
             className="light-gray"
           >
-            +/- 
+            +/-
           </button>
           <button
             id="percentage"
@@ -186,11 +187,7 @@ function App() {
           >
             3
           </button>
-          <button
-            id="add"
-            onClick={() => buttonPress("+")}
-            className="green"
-          >
+          <button id="add" onClick={() => buttonPress("+")} className="green">
             +
           </button>
           <button
@@ -220,4 +217,4 @@ function App() {
   );
 }
 
-export default App;
+export default App; // Exporting the App component
