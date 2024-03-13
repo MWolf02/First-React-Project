@@ -1,0 +1,60 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.clock {
+  max-width: 700px;
+  margin: 0 auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.setters {
+  display: flex;
+  text-align: center;
+  width: 100%;
+  justify-content: space-around;
+}
+
+button {
+  margin: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #468447;
+  color: white;
+  cursor: pointer;
+}
+
+h1 {
+  text-align: center;
+  font-size: 42px;
+}
+
+h4 {
+  font-size: 30px;
+  margin-top: 20px;
+  color: orange;
+}
+
+span {
+  font-size: 24px;
+  padding-bottom: 6px;
+}
+
+.display {
+  text-align: center;
+  margin-top: 20px;
+  border: 1px solid;
+  border-radius: 130px;
+  padding: 50px;
+}
+
+#time-left {
+  font-size: 36px;
+}
