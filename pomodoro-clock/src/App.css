@@ -50,8 +50,8 @@ span {
 .display {
   text-align: center;
   margin-top: 20px;
-  border: 1px solid;
-  border-radius: 130px;
+  border: 2px solid;
+  border-radius: 70px;
   padding: 50px;
 }
 
